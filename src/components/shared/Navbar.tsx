@@ -1,14 +1,29 @@
 "use client";
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <nav className="bg-transparent sticky top-0 z-50 text-stone-50 py-12">
+      <nav className={`fixed w-full z-50 text-stone-50 transition-all duration-300
+        ${scrolled ? 'bg-gray-900/90 backdrop-blur-sm py-4' : 'bg-transparent py-8'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center">
            
@@ -53,7 +68,6 @@ const Navbar = () => {
 
             {/* Right side links - hidden on mobile */}
             <div className="hidden md:flex space-x-2 md:space-x-4">
-              <NavLink href="#skills">Skills</NavLink>
               <NavLink href="#testimonials">Testimonials</NavLink>
               <NavLink href="#blog">Blog</NavLink>
               <NavLink href="#contact">Contact</NavLink>
@@ -70,7 +84,6 @@ const Navbar = () => {
             <MobileNavLink href="#portfolio" onClick={() => setIsOpen(false)}>Portfolio</MobileNavLink>
             <MobileNavLink href="#about" onClick={() => setIsOpen(false)}>About Me</MobileNavLink>
             <MobileNavLink href="#services" onClick={() => setIsOpen(false)}>Services</MobileNavLink>
-            <MobileNavLink href="#skills" onClick={() => setIsOpen(false)}>Skills</MobileNavLink>
             <MobileNavLink href="#testimonials" onClick={() => setIsOpen(false)}>Testimonials</MobileNavLink>
             <MobileNavLink href="#blog" onClick={() => setIsOpen(false)}>Blog</MobileNavLink>
             <MobileNavLink href="#contact" onClick={() => setIsOpen(false)}>Contact</MobileNavLink>
