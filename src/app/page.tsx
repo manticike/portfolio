@@ -9,11 +9,11 @@ import Services from "@/components/sections/Services";
 export default function Home() {
   return (
     <div>
-     <Hero />
-     {/* <Portfolio /> */}
-     <About />
-     <Services />
-     {/* <Client /> */}
+      <Hero />
+      <Portfolio />
+      <About />
+      <Services />
+      {/* <Client /> */}
     </div>
   );
 }
